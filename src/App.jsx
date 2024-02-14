@@ -5,10 +5,24 @@ import './App.css';
 
 function App() {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [inputValue, setInputValue] = useState("");
 
-  const openDialog = () => {
-    setDialogOpen(true);
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
   };
+  function openDialog(event){
+    // dialog.style.display ="flex";
+    // dialog.style.flexDirection ="column";
+    // dialog.style.gap = 1 + "rem";
+    event.preventDefault(); // Prevent form submission
+    setDialogOpen(true);
+    // dialog.showModal();
+    // console.log("modal is open!")
+}
+
+  // const openDialog = () => {
+  //   setDialogOpen(true);
+  // };
 
   const closeDialog = () => {
     setDialogOpen(false);
@@ -28,9 +42,15 @@ function App() {
           <li><img src={success_icon} alt="" />Measuring to ensure updates are a success</li>
           <li><img src={success_icon} alt="" />And much more!</li>
         </ul>
-        <form action="" className="flex flex-col gap-2">
+        <form action="" className="flex flex-col gap-2 relative">
           <label htmlFor="" className="text-sm font-bold">Email address</label>
-          <input type="email" placeholder="email@company.com" />
+          <label htmlFor="" className='text-red-600 absolute right-0'>valid email required</label>
+          <input value={inputValue}
+                 onChange={handleChange}
+                 style={{ borderColor: inputValue === "" ? "red" : "black" }} 
+               
+                 type="email" 
+                 placeholder="email@company.com" />
           <button onClick={openDialog}>Subscribe to monthly newsletter</button>
         </form>
       </div>
